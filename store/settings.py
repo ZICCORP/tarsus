@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     #custom apps
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
+    'products.apps.ProductsConfig',
 ]
 
 MIDDLEWARE = [
