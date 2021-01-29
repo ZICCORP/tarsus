@@ -10,5 +10,13 @@
     <h2><a href="">{{product.title}}</a></h2>
     <p>Seller: {{ product.seller }}</p>
     <p>Price: {{ product.price }}</p>
+    <div>
+        <h3>Review</h3>
+        <ul>
+            {% for review in product.reviews.all %}
+            <li>{{ review.review }} ({{ review.seller }})</li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock content %}

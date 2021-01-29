@@ -2,13 +2,17 @@ from django.test import TestCase,Client
 
 from django.urls import reverse
 
-from .models import Product
+from .models import Product,Review
+
+from django.contrib.auth import get_user_model
 
 
 class ProductTest(TestCase):
 
     def setUp(self):
+        self.user = get_user_model().objects.create_user(username='reviewuser',email='reviewuser@email.com',password='frank123')
         self.product = Product.objects.create(title="Laptop",seller='okenny john',price='29.99')
+        self.review = Review.objects.create(seller=self.user,product=self.product,review='absolutely loved it')
 
 
     def test_product_listing(self):
@@ -28,4 +32,5 @@ class ProductTest(TestCase):
         self.assertEqual(response.status_code,200)
         self.assertEqual(no_response.status_code,404)
         self.assertContains(response,"Laptop")
+        self.assertContains(response,'absolutely loved it')
         self.assertTemplateUsed(response,'products/product_detail.html')
